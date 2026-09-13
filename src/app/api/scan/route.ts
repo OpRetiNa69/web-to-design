@@ -55,7 +55,7 @@ export async function POST(req: NextRequest): Promise<NextResponse<ScanResponse>
       );
     }
 
-    // 1. Raw token extraction via headless Chromium
+    // 1. Raw token extraction via Cheerio & CSS-Tree AST
     const raw = await extractTokensFromUrl(parsedUrl.toString());
 
     // 2. Perceptual color clustering & semantic categorization
