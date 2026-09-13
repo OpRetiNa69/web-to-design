@@ -92,17 +92,18 @@ export async function POST(req: NextRequest): Promise<NextResponse<ScanResponse>
     console.error('Extraction fatal error:', err);
 
     const errorMessage =
-      err instanceof Error
+      err?.message ||
+      (err instanceof Error
         ? err.message
         : typeof err === 'string'
         ? err
-        : 'Scrape failed';
+        : 'Scrape failed');
 
     return NextResponse.json(
       {
         success: false,
-        error: errorMessage || 'Scrape failed',
-        message: errorMessage || 'Scrape failed',
+        error: errorMessage,
+        message: errorMessage,
       },
       { status: 500 }
     );

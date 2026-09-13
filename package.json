@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@types/css-tree": "^3.2.0",
+    "axios": "^1.20.0",
     "cheerio": "^1.2.0",
     "colord": "^2.10.0",
     "css-tree": "^3.2.1",
