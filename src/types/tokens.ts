@@ -28,6 +28,61 @@ export interface ExtractedShadow {
   count: number;
 }
 
+export interface ExtractedButton {
+  label: string;
+  variant: 'primary' | 'secondary' | 'outline' | 'ghost';
+  backgroundColor: string;
+  textColor: string;
+  borderColor?: string;
+  borderRadius: string;
+  padding: string;
+  fontSize: string;
+  fontWeight: string;
+}
+
+export interface ExtractedInput {
+  placeholder: string;
+  type: string;
+  backgroundColor: string;
+  textColor: string;
+  borderColor: string;
+  borderRadius: string;
+  height: string;
+  padding: string;
+}
+
+export interface ExtractedCard {
+  title?: string;
+  description?: string;
+  backgroundColor: string;
+  borderColor?: string;
+  borderRadius: string;
+  boxShadow?: string;
+  padding: string;
+}
+
+export interface ExtractedBadge {
+  label: string;
+  backgroundColor: string;
+  textColor: string;
+  borderColor?: string;
+  borderRadius: string;
+}
+
+export interface ExtractedComponents {
+  buttons: ExtractedButton[];
+  inputs: ExtractedInput[];
+  cards: ExtractedCard[];
+  badges: ExtractedBadge[];
+}
+
+export interface ExtractedIcon {
+  id: string;
+  name: string;
+  svg: string;
+  viewBox: string;
+}
+
 export interface ExtractionResult {
   url: string;
   title: string;
@@ -36,6 +91,8 @@ export interface ExtractionResult {
   typography: ExtractedTypography[];
   radii: ExtractedRadius[];
   shadows: ExtractedShadow[];
+  components?: ExtractedComponents;
+  icons?: ExtractedIcon[];
 }
 
 export interface TypeScaleItem {
@@ -67,6 +124,8 @@ export interface DesignSystem {
   radii: ExtractedRadius[];
   shadows: ExtractedShadow[];
   fonts: DesignSystemFonts;
+  components?: ExtractedComponents;
+  icons?: ExtractedIcon[];
   exports: DesignSystemExports;
 }
 

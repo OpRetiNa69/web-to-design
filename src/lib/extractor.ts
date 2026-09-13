@@ -13,6 +13,9 @@ import type {
   ExtractedRadius,
   ExtractedShadow,
 } from '@/types/tokens';
+import { extractIcons } from '@/lib/icon-extractor';
+import { normalizeElevations } from '@/lib/shadow-extractor';
+import { extractComponents } from '@/lib/component-extractor';
 
 extend([a11yPlugin, namesPlugin]);
 
@@ -946,21 +949,28 @@ export async function extractTokensFromUrl(targetUrl: string): Promise<Extractio
     count,
   }));
 
-  // 12. Build Shadows
-  if (shadowMap.size === 0) {
-    shadowMap.set('0 1px 3px 0 rgba(0,0,0,0.1)', 8);
-    shadowMap.set('0 4px 6px -1px rgba(0,0,0,0.1)', 5);
-    shadowMap.set('0 10px 15px -3px rgba(0,0,0,0.1)', 3);
-  }
-  const shadowNames = ['sm', 'md', 'lg'] as const;
-  const shadows: ExtractedShadow[] = Array.from(shadowMap.entries())
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 3)
-    .map(([value, count], index) => ({
-      name: shadowNames[index] || `elevation-${index + 1}`,
-      value,
-      count,
-    }));
+  // 12. Normalize Shadows into Elevation Levels
+  const shadows: ExtractedShadow[] = normalizeElevations(shadowMap);
+
+  // 13. Extract Inline SVGs as Icon Tokens (up to 24 unique icons)
+  const icons = extractIcons($);
+
+  // 14. Extract UI Components (Buttons, Inputs, Cards, Badges)
+  const primaryCandidates = colors.filter((c) => c.type === 'background').slice(0, 3);
+  const surfaceCandidates = colors.filter((c) => c.luminance > 0.85 || c.luminance < 0.15).slice(0, 3);
+  const neutralCandidates = colors.filter((c) => c.type === 'border' || (c.luminance >= 0.15 && c.luminance <= 0.85)).slice(0, 3);
+  const accentCandidates = colors.filter((c) => c.type === 'text' || c.type === 'background').slice(0, 3);
+
+  const components = extractComponents($, {
+    palette: {
+      primary: primaryCandidates.length > 0 ? primaryCandidates : colors.slice(0, 2),
+      surfaces: surfaceCandidates.length > 0 ? surfaceCandidates : colors.slice(0, 2),
+      neutrals: neutralCandidates.length > 0 ? neutralCandidates : colors.slice(0, 2),
+      accents: accentCandidates.length > 0 ? accentCandidates : colors.slice(0, 2),
+    },
+    radii,
+    shadows,
+  });
 
   return {
     url: normalizedUrl,
@@ -970,5 +980,7 @@ export async function extractTokensFromUrl(targetUrl: string): Promise<Extractio
     typography,
     radii,
     shadows,
+    components,
+    icons,
   };
 }

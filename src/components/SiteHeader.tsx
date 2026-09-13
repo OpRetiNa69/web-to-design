@@ -49,6 +49,14 @@ export const SiteHeader: React.FC<SiteHeaderProps> = ({ data, onRescan, loading 
     data.system.palette.neutrals.length +
     data.system.palette.accents.length;
 
+  const totalComponents =
+    (data.raw?.components?.buttons?.length || 0) +
+    (data.raw?.components?.inputs?.length || 0) +
+    (data.raw?.components?.cards?.length || 0) +
+    (data.raw?.components?.badges?.length || 0);
+
+  const totalIcons = data.raw?.icons?.length || 0;
+
   const handleCopyFigma = async () => {
     const svgString = generateFigmaTokenSheetSvg(data.system, data.raw.url);
     try {
@@ -119,6 +127,16 @@ export const SiteHeader: React.FC<SiteHeaderProps> = ({ data, onRescan, loading 
             <span className="px-3 py-1 rounded-full bg-neutral-100 dark:bg-neutral-800/70 border border-neutral-200/60 dark:border-neutral-700/60 text-neutral-600 dark:text-neutral-300 text-[11px]">
               {data.system.typeScale.length} Type Steps
             </span>
+            {totalComponents > 0 && (
+              <span className="px-3 py-1 rounded-full bg-neutral-100 dark:bg-neutral-800/70 border border-neutral-200/60 dark:border-neutral-700/60 text-neutral-600 dark:text-neutral-300 text-[11px]">
+                {totalComponents} Components
+              </span>
+            )}
+            {totalIcons > 0 && (
+              <span className="px-3 py-1 rounded-full bg-neutral-100 dark:bg-neutral-800/70 border border-neutral-200/60 dark:border-neutral-700/60 text-neutral-600 dark:text-neutral-300 text-[11px]">
+                {totalIcons} SVGs
+              </span>
+            )}
           </div>
 
           {/* Quick Copy for Figma Button */}

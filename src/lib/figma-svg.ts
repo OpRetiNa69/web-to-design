@@ -1,7 +1,8 @@
 import type { DesignSystem, ExtractedColor, TypeScaleItem, ExtractedRadius, ExtractedShadow } from '@/types/tokens';
 
-function escapeXml(unsafe: string): string {
-  return unsafe
+function escapeXml(unsafe: string | undefined | null): string {
+  if (!unsafe) return '';
+  return String(unsafe)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
@@ -134,26 +135,27 @@ export function generateFigmaTokenSheetSvg(
   <g id="Section-Typography">
     <line x1="${paddingX}" y1="${currentY}" x2="${paddingX + contentWidth}" y2="${currentY}" stroke="#27272A" stroke-width="1" />
     <text x="${paddingX}" y="${currentY + 34}" font-family="Inter, -apple-system, sans-serif" font-size="16" font-weight="700" fill="#FAFAFA" letter-spacing="-0.3">02 / TYPOGRAPHY SCALE</text>
-    <text x="${paddingX + 210}" y="${currentY + 33}" font-family="Inter, -apple-system, sans-serif" font-size="12" font-weight="400" fill="#71717A">Heading: "${escapeXml(system.fonts.heading)}" • Body: "${escapeXml(system.fonts.body)}"</text>
+    <text x="${paddingX + 210}" y="${currentY + 33}" font-family="Inter, -apple-system, sans-serif" font-size="12" font-weight="400" fill="#71717A">Heading: "${escapeXml(system.fonts?.heading || 'Inter')}" • Body: "${escapeXml(system.fonts?.body || 'Inter')}"</text>
   </g>
   `);
 
   currentY += 54;
 
   system.typeScale.forEach((item, idx) => {
-    const isHeading = ['display', 'h1', 'h2', 'h3'].includes(item.name);
-    const fontName = isHeading ? system.fonts.heading : system.fonts.body;
+    const itemName = item.name || (item as any).step || `step-${idx + 1}`;
+    const isHeading = ['display', 'h1', 'h2', 'h3'].includes(itemName);
+    const fontName = isHeading ? (system.fonts?.heading || 'Inter') : (system.fonts?.body || 'Inter');
     const pxSize = parsePx(item.fontSize, 16);
     const itemHeight = Math.max(54, pxSize + 24);
 
     svgParts.push(`
-    <g id="TypeScale-${escapeXml(item.name)}">
+    <g id="TypeScale-${escapeXml(itemName)}">
       <!-- Item Row Background -->
       <rect x="${paddingX}" y="${currentY}" width="${contentWidth}" height="${itemHeight}" rx="10" fill="#18181B" stroke="#27272A" stroke-width="1" />
       
       <!-- Tag Badge -->
       <rect x="${paddingX + 12}" y="${currentY + 12}" width="60" height="20" rx="4" fill="#27272A" />
-      <text x="${paddingX + 42}" y="${currentY + 26}" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#A1A1AA">${escapeXml(item.name.toUpperCase())}</text>
+      <text x="${paddingX + 42}" y="${currentY + 26}" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#A1A1AA">${escapeXml(itemName.toUpperCase())}</text>
       
       <!-- Metrics Info -->
       <text x="${paddingX + 84}" y="${currentY + 26}" font-family="monospace" font-size="11" font-weight="500" fill="#71717A">${escapeXml(item.fontSize)} • LH: ${escapeXml(item.lineHeight)}</text>
@@ -209,10 +211,166 @@ export function generateFigmaTokenSheetSvg(
     `);
   });
 
-  currentY += radiiCardH + 48;
+    currentY += radiiCardH + 40;
+
+  // --- UI COMPONENTS SECTION ---
+  const buttons = system.components?.buttons || [];
+  const inputs = system.components?.inputs || [];
+  const badges = system.components?.badges || [];
+
+  svgParts.push(`
+  <!-- UI Components Section Header -->
+  <g id="Section-Components">
+    <line x1="${paddingX}" y1="${currentY}" x2="${paddingX + contentWidth}" y2="${currentY}" stroke="#27272A" stroke-width="1" />
+    <text x="${paddingX}" y="${currentY + 34}" font-family="Inter, -apple-system, sans-serif" font-size="16" font-weight="700" fill="#FAFAFA" letter-spacing="-0.3">04 / EXTRACTED UI COMPONENTS</text>
+    <text x="${paddingX + 270}" y="${currentY + 33}" font-family="Inter, -apple-system, sans-serif" font-size="12" font-weight="400" fill="#71717A">Interactive Buttons, Inputs &amp; Status Badges</text>
+  </g>
+  `);
+
+  currentY += 54;
+
+  // Render Buttons
+  if (buttons.length > 0) {
+    svgParts.push(`
+    <g id="ComponentGroup-Buttons">
+      <text x="${paddingX}" y="${currentY + 14}" font-family="monospace" font-size="11" font-weight="600" fill="#A1A1AA" text-transform="uppercase" letter-spacing="0.5">Button Primitives (${buttons.length})</text>
+    </g>
+    `);
+
+    currentY += 26;
+
+    let btnX = paddingX;
+    const btnRowY = currentY;
+    const btnHeight = 42;
+
+    buttons.slice(0, 4).forEach((btn, idx) => {
+      const btnWidth = Math.max(130, btn.label.length * 8 + 36);
+      const btnRadius = parsePx(btn.borderRadius, 8);
+      const isOutline = btn.variant === 'outline';
+      const isGhost = btn.variant === 'ghost';
+
+      svgParts.push(`
+      <g id="Button-${idx + 1}-${escapeXml(btn.variant)}">
+        <!-- Button Background Frame -->
+        <rect x="${btnX}" y="${btnRowY}" width="${btnWidth}" height="${btnHeight}" rx="${btnRadius}" 
+          fill="${isOutline || isGhost ? 'none' : btn.backgroundColor}" 
+          ${isOutline ? `stroke="${btn.borderColor || btn.textColor}" stroke-width="1.5"` : ''} 
+        />
+        <!-- Button Label -->
+        <text x="${btnX + btnWidth / 2}" y="${btnRowY + 25}" text-anchor="middle" font-family="Inter, -apple-system, sans-serif" font-size="13" font-weight="600" fill="${btn.textColor}">
+          ${escapeXml(btn.label)}
+        </text>
+      </g>
+      `);
+
+      btnX += btnWidth + 16;
+    });
+
+    currentY += btnHeight + 28;
+  }
+
+  // Render Input Field & Badges in a side-by-side row
+  const inputToDisplay = inputs[0];
+  if (inputToDisplay || badges.length > 0) {
+    const inputW = 340;
+    const inputH = 44;
+    const inputRadius = inputToDisplay ? parsePx(inputToDisplay.borderRadius, 8) : 8;
+
+    svgParts.push(`
+    <g id="ComponentGroup-InputsAndBadges">
+      <text x="${paddingX}" y="${currentY + 14}" font-family="monospace" font-size="11" font-weight="600" fill="#A1A1AA" text-transform="uppercase" letter-spacing="0.5">Form Inputs &amp; Status Badges</text>
+    </g>
+    `);
+
+    currentY += 26;
+
+    if (inputToDisplay) {
+      svgParts.push(`
+      <g id="Component-Input">
+        <rect x="${paddingX}" y="${currentY}" width="${inputW}" height="${inputH}" rx="${inputRadius}" fill="#18181B" stroke="${inputToDisplay.borderColor || '#3F3F46'}" stroke-width="1.5" />
+        <text x="${paddingX + 16}" y="${currentY + 26}" font-family="Inter, -apple-system, sans-serif" font-size="13" font-weight="400" fill="#71717A">
+          ${escapeXml(inputToDisplay.placeholder.slice(0, 38))}
+        </text>
+      </g>
+      `);
+    }
+
+    // Render Badges next to input
+    let badgeX = paddingX + (inputToDisplay ? inputW + 24 : 0);
+    badges.slice(0, 4).forEach((badge, bIdx) => {
+      const badgeWidth = Math.max(80, badge.label.length * 7 + 24);
+      const badgeHeight = 28;
+      const bRadius = parsePx(badge.borderRadius, 14);
+
+      svgParts.push(`
+      <g id="Badge-${bIdx + 1}">
+        <rect x="${badgeX}" y="${currentY + 8}" width="${badgeWidth}" height="${badgeHeight}" rx="${bRadius}" fill="${badge.backgroundColor}" ${badge.borderColor ? `stroke="${badge.borderColor}" stroke-width="1"` : ''} />
+        <text x="${badgeX + badgeWidth / 2}" y="${currentY + 26}" text-anchor="middle" font-family="monospace" font-size="11" font-weight="600" fill="${badge.textColor}">
+          ${escapeXml(badge.label)}
+        </text>
+      </g>
+      `);
+
+      badgeX += badgeWidth + 12;
+    });
+
+    currentY += inputH + 40;
+  }
+
+  // --- VECTOR ICONS SECTION ---
+  const icons = system.icons || [];
+  if (icons.length > 0) {
+    svgParts.push(`
+    <!-- Vector Icons Section Header -->
+    <g id="Section-Icons">
+      <line x1="${paddingX}" y1="${currentY}" x2="${paddingX + contentWidth}" y2="${currentY}" stroke="#27272A" stroke-width="1" />
+      <text x="${paddingX}" y="${currentY + 34}" font-family="Inter, -apple-system, sans-serif" font-size="16" font-weight="700" fill="#FAFAFA" letter-spacing="-0.3">05 / VECTOR ICONS</text>
+      <text x="${paddingX + 175}" y="${currentY + 33}" font-family="Inter, -apple-system, sans-serif" font-size="12" font-weight="400" fill="#71717A">Extracted SVG Glyphs • Native Figma Vectors (${icons.length})</text>
+    </g>
+    `);
+
+    currentY += 54;
+
+    const iconCardW = 120;
+    const iconCardH = 96;
+    const iconGap = 16;
+    const iconsPerRow = Math.floor((contentWidth + iconGap) / (iconCardW + iconGap));
+
+    icons.slice(0, 24).forEach((icon, i) => {
+      const col = i % iconsPerRow;
+      const row = Math.floor(i / iconsPerRow);
+      const x = paddingX + col * (iconCardW + iconGap);
+      const y = currentY + row * (iconCardH + iconGap);
+
+      // Clean and extract inner SVG paths
+      const innerSvg = icon.svg
+        .replace(/<svg[^>]*>/i, '')
+        .replace(/<\/svg>/i, '')
+        .trim();
+
+      svgParts.push(`
+      <g id="Icon-${escapeXml(icon.name)}">
+        <rect x="${x}" y="${y}" width="${iconCardW}" height="${iconCardH}" rx="10" fill="#18181B" stroke="#27272A" stroke-width="1" />
+        
+        <!-- Centered 24x24 Vector Container -->
+        <g transform="translate(${x + (iconCardW - 24) / 2}, ${y + 18})" fill="none" stroke="#FAFAFA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          ${innerSvg}
+        </g>
+        
+        <!-- Icon Label -->
+        <text x="${x + iconCardW / 2}" y="${y + 76}" text-anchor="middle" font-family="monospace" font-size="10" font-weight="500" fill="#A1A1AA">
+          ${escapeXml(icon.name.slice(0, 14))}
+        </text>
+      </g>
+      `);
+    });
+
+    const totalIconRows = Math.ceil(Math.min(icons.length, 24) / iconsPerRow);
+    currentY += totalIconRows * (iconCardH + iconGap) + 40;
+  }
 
   // Total Canvas Height
-  const totalHeight = currentY;
+  const totalHeight = currentY + 16;
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg width="${canvasWidth}" height="${totalHeight}" viewBox="0 0 ${canvasWidth} ${totalHeight}" fill="none" xmlns="http://www.w3.org/2000/svg">

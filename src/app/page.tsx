@@ -11,6 +11,8 @@ import { TypographyCell } from '@/components/TypographyCell';
 import { ComponentSandboxCell } from '@/components/ComponentSandboxCell';
 import { ElevationsCell } from '@/components/ElevationsCell';
 import { ExportCell } from '@/components/ExportCell';
+import { ComponentsCell } from '@/components/ComponentsCell';
+import { IconsCell } from '@/components/IconsCell';
 import { FeaturesSection } from '@/components/FeaturesSection';
 import {
   Layers,
@@ -21,6 +23,10 @@ import {
   Code2,
   Check,
   Copy,
+  LayoutGrid,
+  Component as ComponentIcon,
+  Shapes,
+  FileCode,
 } from 'lucide-react';
 
 export default function Home() {
@@ -28,6 +34,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<ScanData | null>(null);
+  const [activeTab, setActiveTab] = useState<'overview' | 'components' | 'icons' | 'exports'>('overview');
   const [showRawJson, setShowRawJson] = useState(false);
   const [rawCopied, setRawCopied] = useState(false);
 
@@ -218,43 +225,167 @@ export default function Home() {
                   loading={loading}
                 />
 
-                {/* Bento Grid: Row 1 */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
-                  {/* Color Palette Bento Cell */}
-                  <div className="lg:col-span-7">
-                    <ColorPaletteCell palette={result.system.palette} />
-                  </div>
+                {/* Navigation Segmented Tab Switcher */}
+                {(() => {
+                  const buttonCount = result.raw?.components?.buttons?.length || 0;
+                  const inputCount = result.raw?.components?.inputs?.length || 0;
+                  const cardCount = result.raw?.components?.cards?.length || 0;
+                  const badgeCount = result.raw?.components?.badges?.length || 0;
+                  const totalComponents = buttonCount + inputCount + cardCount + badgeCount;
+                  const totalIcons = result.raw?.icons?.length || 0;
 
-                  {/* Dynamic Component Sandbox Bento Cell */}
-                  <div className="lg:col-span-5">
-                    <ComponentSandboxCell system={result.system} />
-                  </div>
-                </div>
+                  return (
+                    <div className="flex items-center justify-between gap-3 border-b border-neutral-200/80 dark:border-neutral-800/80 pb-3 pt-1 overflow-x-auto no-scrollbar">
+                      <div className="inline-flex items-center p-1 rounded-xl bg-neutral-200/60 dark:bg-neutral-900/80 border border-neutral-200/80 dark:border-neutral-800/80">
+                        <button
+                          type="button"
+                          onClick={() => setActiveTab('overview')}
+                          className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+                            activeTab === 'overview'
+                              ? 'bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white shadow-xs font-semibold'
+                              : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200'
+                          }`}
+                        >
+                          <LayoutGrid className="w-3.5 h-3.5" />
+                          <span>Overview</span>
+                        </button>
 
-                {/* Bento Grid: Row 2 */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
-                  {/* Typography Scale Bento Cell */}
-                  <div className="lg:col-span-7">
-                    <TypographyCell
-                      typeScale={result.system.typeScale}
-                      fonts={result.system.fonts}
+                        <button
+                          type="button"
+                          onClick={() => setActiveTab('components')}
+                          className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+                            activeTab === 'components'
+                              ? 'bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white shadow-xs font-semibold'
+                              : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200'
+                          }`}
+                        >
+                          <ComponentIcon className="w-3.5 h-3.5" />
+                          <span>UI Components</span>
+                          {totalComponents > 0 && (
+                            <span className="px-1.5 py-0.2 rounded-full text-[10px] font-mono bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300">
+                              {totalComponents}
+                            </span>
+                          )}
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => setActiveTab('icons')}
+                          className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+                            activeTab === 'icons'
+                              ? 'bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white shadow-xs font-semibold'
+                              : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200'
+                          }`}
+                        >
+                          <Shapes className="w-3.5 h-3.5" />
+                          <span>Vector Icons</span>
+                          {totalIcons > 0 && (
+                            <span className="px-1.5 py-0.2 rounded-full text-[10px] font-mono bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300">
+                              {totalIcons}
+                            </span>
+                          )}
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => setActiveTab('exports')}
+                          className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+                            activeTab === 'exports'
+                              ? 'bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white shadow-xs font-semibold'
+                              : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200'
+                          }`}
+                        >
+                          <FileCode className="w-3.5 h-3.5" />
+                          <span>Code &amp; Figma</span>
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })()}
+
+                {/* Tab: Overview (All-in-one Bento Board) */}
+                {activeTab === 'overview' && (
+                  <div className="space-y-5">
+                    {/* Bento Grid: Row 1 */}
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+                      {/* Color Palette Bento Cell */}
+                      <div className="lg:col-span-7">
+                        <ColorPaletteCell palette={result.system.palette} />
+                      </div>
+
+                      {/* Dynamic Component Sandbox Bento Cell */}
+                      <div className="lg:col-span-5">
+                        <ComponentSandboxCell system={result.system} />
+                      </div>
+                    </div>
+
+                    {/* Bento Grid: Row 2 - Extracted UI Components Showcase */}
+                    <div>
+                      <ComponentsCell
+                        components={result.raw?.components || result.system.components}
+                        system={result.system}
+                      />
+                    </div>
+
+                    {/* Bento Grid: Row 3 */}
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+                      {/* Typography Scale Bento Cell */}
+                      <div className="lg:col-span-7">
+                        <TypographyCell
+                          typeScale={result.system.typeScale}
+                          fonts={result.system.fonts}
+                        />
+                      </div>
+
+                      {/* Elevations & Box Shadows Bento Cell */}
+                      <div className="lg:col-span-5">
+                        <ElevationsCell shadows={result.system.shadows} />
+                      </div>
+                    </div>
+
+                    {/* Bento Grid: Row 4 - Vector Icons Grid */}
+                    <div>
+                      <IconsCell icons={result.raw?.icons || result.system.icons || []} />
+                    </div>
+
+                    {/* Bento Grid: Row 5 - Production Exporters */}
+                    <div>
+                      <ExportCell
+                        exports={result.system.exports}
+                        system={result.system}
+                        targetUrl={result.raw.url}
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {/* Tab: UI Components Dedicated View */}
+                {activeTab === 'components' && (
+                  <div className="space-y-5">
+                    <ComponentsCell
+                      components={result.raw?.components || result.system.components}
+                      system={result.system}
                     />
                   </div>
+                )}
 
-                  {/* Elevations & Box Shadows Bento Cell */}
-                  <div className="lg:col-span-5">
-                    <ElevationsCell shadows={result.system.shadows} />
+                {/* Tab: Vector Icons Dedicated View */}
+                {activeTab === 'icons' && (
+                  <div className="space-y-5">
+                    <IconsCell icons={result.raw?.icons || result.system.icons || []} />
                   </div>
-                </div>
+                )}
 
-                {/* Bento Grid: Row 3 - Production Exporters */}
-                <div>
-                  <ExportCell
-                    exports={result.system.exports}
-                    system={result.system}
-                    targetUrl={result.raw.url}
-                  />
-                </div>
+                {/* Tab: Production Exporters Dedicated View */}
+                {activeTab === 'exports' && (
+                  <div className="space-y-5">
+                    <ExportCell
+                      exports={result.system.exports}
+                      system={result.system}
+                      targetUrl={result.raw.url}
+                    />
+                  </div>
+                )}
 
                 {/* Developer Raw JSON Disclosure */}
                 <div className="pt-1">

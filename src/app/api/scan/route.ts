@@ -71,6 +71,8 @@ export async function POST(req: NextRequest): Promise<NextResponse<ScanResponse>
       radii: raw.radii,
       shadows: raw.shadows,
       fonts: typographyAnalysis.fonts,
+      components: raw.components,
+      icons: raw.icons,
     };
 
     // 5. Code exporters (Tailwind, CSS Variables, DTCG JSON)
