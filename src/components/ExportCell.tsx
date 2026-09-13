@@ -171,19 +171,19 @@ export const ExportCell: React.FC<ExportCellProps> = ({ exports, system, targetU
   };
 
   return (
-    <div className="rounded-2xl border border-neutral-200/80 dark:border-neutral-800/80 bg-white/80 dark:bg-neutral-900/70 backdrop-blur-md shadow-[0_2px_12px_rgba(0,0,0,0.03)] dark:shadow-none hover:border-neutral-300 dark:hover:border-neutral-700 transition-colors duration-200 p-6 flex flex-col justify-between h-full">
+    <div className="bg-white dark:bg-[#0F172A]/90 border border-[#E2E8F0] dark:border-slate-800 rounded-2xl shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition-colors duration-200 p-6 flex flex-col justify-between h-full">
       <div>
         {/* Header */}
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between pb-4 mb-4 border-b border-neutral-200/80 dark:border-neutral-800/80 gap-3">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between pb-4 mb-4 border-b border-[#E2E8F0] dark:border-slate-800 gap-3">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 flex items-center justify-center flex-shrink-0">
+            <div className="w-8 h-8 rounded-xl bg-blue-50 dark:bg-blue-950 text-[#2563EB] dark:text-blue-400 border border-blue-200 dark:border-blue-800 flex items-center justify-center flex-shrink-0">
               <Code2 className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="text-sm font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">
+              <h3 className="text-sm font-semibold tracking-tight text-[#0F172A] dark:text-white">
                 Export Pipeline &amp; Figma Integration
               </h3>
-              <p className="text-xs text-neutral-600 dark:text-neutral-400">
+              <p className="text-xs text-[#0F172A]/70 dark:text-slate-400">
                 Direct Figma vector clipboard sync, Figma Variables JSON, or codebase configs.
               </p>
             </div>
@@ -197,13 +197,13 @@ export const ExportCell: React.FC<ExportCellProps> = ({ exports, system, targetU
                 id="copy-figma-button"
                 type="button"
                 onClick={handleCopyFigmaSvg}
-                className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-neutral-900 hover:bg-neutral-800 text-white dark:bg-white dark:hover:bg-neutral-200 dark:text-neutral-950 text-xs font-medium transition-colors cursor-pointer active:scale-95 shadow-2xs"
+                className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-medium shadow-sm transition-all cursor-pointer active:scale-95"
                 title="Copies an SVG vector token sheet to paste directly onto your Figma canvas"
               >
                 {figmaCopied ? (
                   <>
-                    <Check className="w-3.5 h-3.5 text-emerald-400 dark:text-emerald-600" />
-                    <span className="text-emerald-400 dark:text-emerald-600 font-medium">Copied! Paste directly into Figma (Cmd+V)</span>
+                    <Check className="w-3.5 h-3.5 text-white" />
+                    <span className="text-white font-medium">Copied! Paste in Figma (Cmd+V)</span>
                   </>
                 ) : (
                   <>
@@ -220,7 +220,7 @@ export const ExportCell: React.FC<ExportCellProps> = ({ exports, system, targetU
                 id="download-figma-vars-button"
                 type="button"
                 onClick={handleDownloadFigmaVariables}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-neutral-800 dark:text-neutral-200 text-xs font-medium transition-colors cursor-pointer active:scale-95 border border-neutral-200 dark:border-neutral-700"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-blue-50 hover:bg-blue-100 dark:bg-blue-950 dark:hover:bg-blue-900/60 text-[#2563EB] dark:text-blue-400 text-xs font-medium transition-colors cursor-pointer active:scale-95 border border-blue-200 dark:border-blue-800"
                 title="Download standard Figma Variables collection JSON"
               >
                 <Download className="w-3.5 h-3.5" />
@@ -231,7 +231,7 @@ export const ExportCell: React.FC<ExportCellProps> = ({ exports, system, targetU
             <button
               type="button"
               onClick={handleCopy}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-neutral-800 dark:text-neutral-200 text-xs font-medium transition-colors cursor-pointer active:scale-95 border border-neutral-200 dark:border-neutral-700"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-[#0F172A] dark:text-slate-200 text-xs font-medium transition-colors cursor-pointer active:scale-95 border border-[#E2E8F0] dark:border-slate-700"
             >
               {copied ? (
                 <>
@@ -240,7 +240,7 @@ export const ExportCell: React.FC<ExportCellProps> = ({ exports, system, targetU
                 </>
               ) : (
                 <>
-                  <Copy className="w-3.5 h-3.5 text-neutral-500 dark:text-neutral-400" />
+                  <Copy className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
                   <span>Copy Code</span>
                 </>
               )}
@@ -249,7 +249,7 @@ export const ExportCell: React.FC<ExportCellProps> = ({ exports, system, targetU
             <button
               type="button"
               onClick={handleDownload}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-neutral-800 dark:text-neutral-200 text-xs font-medium transition-colors cursor-pointer active:scale-95 border border-neutral-200 dark:border-neutral-700"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-[#0F172A] dark:text-slate-200 text-xs font-medium transition-colors cursor-pointer active:scale-95 border border-[#E2E8F0] dark:border-slate-700"
             >
               <Download className="w-3.5 h-3.5" />
               <span>Download {currentMeta.filename.split('.').pop()?.toUpperCase()}</span>
@@ -258,7 +258,7 @@ export const ExportCell: React.FC<ExportCellProps> = ({ exports, system, targetU
         </div>
 
         {/* Segmented Pill Tab Bar */}
-        <div className="flex items-center gap-1 bg-neutral-100/80 dark:bg-neutral-900/80 p-1 rounded-full border border-neutral-200/60 dark:border-neutral-800/60 mb-4 overflow-x-auto">
+        <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-900/90 p-1 rounded-full border border-[#E2E8F0] dark:border-slate-800 mb-4 overflow-x-auto">
           {(Object.keys(TAB_METADATA) as TabType[]).map((tabKey) => {
             const meta = TAB_METADATA[tabKey];
             const isActive = activeTab === tabKey;
@@ -273,8 +273,8 @@ export const ExportCell: React.FC<ExportCellProps> = ({ exports, system, targetU
                 }}
                 className={`flex-1 py-1.5 px-4 rounded-full text-xs font-medium transition-colors whitespace-nowrap cursor-pointer flex items-center justify-center gap-1.5 ${
                   isActive
-                    ? 'bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 shadow-2xs'
-                    : 'text-neutral-500 hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-200'
+                    ? 'bg-white dark:bg-slate-800 text-[#2563EB] dark:text-blue-400 font-semibold shadow-2xs'
+                    : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200'
                 }`}
               >
                 <FileCode className="w-3.5 h-3.5 opacity-60" />
@@ -285,24 +285,24 @@ export const ExportCell: React.FC<ExportCellProps> = ({ exports, system, targetU
         </div>
 
         {/* Minimal Dark Terminal Container */}
-        <div className="relative bg-neutral-900 text-neutral-100 border border-neutral-800 rounded-xl overflow-hidden font-mono text-xs">
+        <div className="relative bg-[#0F172A] text-slate-100 border border-slate-800 rounded-xl overflow-hidden font-mono text-xs">
           {/* Code Window Header Bar */}
-          <div className="flex items-center justify-between px-3.5 py-2 bg-neutral-950/80 border-b border-neutral-800 text-[11px] text-neutral-400 select-none">
+          <div className="flex items-center justify-between px-3.5 py-2 bg-[#0B1120] border-b border-slate-800 text-[11px] text-slate-400 select-none">
             <div className="flex items-center gap-2">
               <div className="flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-neutral-700" />
-                <span className="w-2.5 h-2.5 rounded-full bg-neutral-700" />
-                <span className="w-2.5 h-2.5 rounded-full bg-neutral-700" />
+                <span className="w-2.5 h-2.5 rounded-full bg-slate-700" />
+                <span className="w-2.5 h-2.5 rounded-full bg-slate-700" />
+                <span className="w-2.5 h-2.5 rounded-full bg-slate-700" />
               </div>
-              <span className="ml-2 text-neutral-300 font-medium">{currentMeta.filename}</span>
+              <span className="ml-2 text-slate-300 font-medium">{currentMeta.filename}</span>
             </div>
-            <span className="text-[10px] text-neutral-500 uppercase">UTF-8 • {codeLines.length} lines</span>
+            <span className="text-[10px] text-slate-500 uppercase">UTF-8 • {codeLines.length} lines</span>
           </div>
 
           {/* Code Body with Line Numbers */}
           <div className="p-4 max-h-[360px] overflow-auto flex">
             {/* Line numbers gutter */}
-            <div className="select-none pr-4 text-neutral-600 text-right font-mono text-xs border-r border-neutral-800 mr-4">
+            <div className="select-none pr-4 text-slate-600 text-right font-mono text-xs border-r border-slate-800 mr-4">
               {codeLines.map((_, i) => (
                 <div key={i} className="leading-relaxed text-[11px]">
                   {i + 1}
@@ -314,7 +314,7 @@ export const ExportCell: React.FC<ExportCellProps> = ({ exports, system, targetU
             <div className="flex-1 min-w-0">
               <pre className="font-mono text-xs leading-relaxed overflow-x-auto">
                 {codeLines.map((line, idx) => (
-                  <div key={idx} className="leading-relaxed hover:bg-neutral-800/40 rounded px-1 -mx-1">
+                  <div key={idx} className="leading-relaxed hover:bg-slate-800/40 rounded px-1 -mx-1">
                     {formatCodeLine(line)}
                   </div>
                 ))}

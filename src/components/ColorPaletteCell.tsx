@@ -76,24 +76,24 @@ export const ColorPaletteCell: React.FC<ColorPaletteCellProps> = ({ palette }) =
   const brandRamp = palette.primary.length > 0 ? generateBrandColorRamp(palette.primary[0].hex) : null;
 
   return (
-    <div className="rounded-2xl border border-neutral-200/80 dark:border-neutral-800/80 bg-white/80 dark:bg-neutral-900/70 backdrop-blur-md shadow-[0_2px_12px_rgba(0,0,0,0.03)] dark:shadow-none hover:border-neutral-300 dark:hover:border-neutral-700 transition-colors duration-200 p-6 flex flex-col justify-between h-full">
+    <div className="bg-white dark:bg-[#0F172A]/90 border border-[#E2E8F0] dark:border-slate-800 rounded-2xl shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition-colors duration-200 p-6 flex flex-col justify-between h-full">
       <div>
         {/* Header */}
-        <div className="flex items-center justify-between pb-4 mb-5 border-b border-neutral-200/80 dark:border-neutral-800/80">
+        <div className="flex items-center justify-between pb-4 mb-5 border-b border-[#E2E8F0] dark:border-slate-800">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 border border-neutral-200/60 dark:border-neutral-700/60 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-xl bg-blue-50 dark:bg-blue-950 text-[#2563EB] dark:text-blue-400 border border-blue-200 dark:border-blue-800 flex items-center justify-center">
               <Palette className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="text-sm font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">
-                Color Tokens & Harmonies
+              <h3 className="text-sm font-semibold tracking-tight text-[#0F172A] dark:text-white">
+                Color Tokens &amp; Harmonies
               </h3>
-              <p className="text-xs text-neutral-600 dark:text-neutral-400">
+              <p className="text-xs text-[#0F172A]/70 dark:text-slate-400">
                 CIEDE2000 clustered with automated 50–950 brand ramps &amp; WCAG AA contrast auditing.
               </p>
             </div>
           </div>
-          <span className="text-xs px-3 py-1 rounded-full bg-neutral-100 dark:bg-neutral-800/70 text-neutral-600 dark:text-neutral-300 font-mono border border-neutral-200/60 dark:border-neutral-700/60">
+          <span className="text-xs px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950 text-[#2563EB] dark:text-blue-400 font-mono font-medium border border-blue-200 dark:border-blue-800">
             {totalSwatches} Tokens
           </span>
         </div>
@@ -106,10 +106,10 @@ export const ColorPaletteCell: React.FC<ColorPaletteCellProps> = ({ palette }) =
             return (
               <div key={label} className="space-y-2.5">
                 <div className="flex items-center justify-between">
-                  <span className="text-[11px] uppercase font-mono tracking-wider text-neutral-400 dark:text-neutral-500 font-medium">
+                  <span className="text-[11px] uppercase font-mono tracking-wider text-[#2563EB] dark:text-blue-400 font-semibold">
                     {label}
                   </span>
-                  <span className="text-[10px] text-neutral-400 dark:text-neutral-500 font-mono">
+                  <span className="text-[10px] text-[#0F172A]/60 dark:text-slate-400 font-mono">
                     {colors.length} {colors.length === 1 ? 'token' : 'tokens'}
                   </span>
                 </div>
@@ -131,11 +131,11 @@ export const ColorPaletteCell: React.FC<ColorPaletteCellProps> = ({ palette }) =
                           setContextMenuToken(contextMenuToken === tokenKey ? null : tokenKey);
                         }}
                         title="Click to copy HEX, right-click or use buttons for other formats"
-                        className="group relative rounded-xl border border-neutral-200/80 dark:border-neutral-800/80 bg-neutral-50/50 dark:bg-neutral-950/40 p-2.5 transition-all duration-150 hover:border-neutral-300 dark:hover:border-neutral-700 hover:shadow-2xs cursor-pointer"
+                        className="group relative rounded-xl border border-[#E2E8F0] dark:border-slate-800 bg-[#F8FAFC]/70 dark:bg-[#0F172A]/60 p-2.5 transition-all duration-150 hover:border-[#2563EB]/40 hover:shadow-xs cursor-pointer"
                       >
                         {/* Micro "Copied!" Popover Feedback */}
                         {isCopied && (
-                          <div className="absolute -top-7 left-1/2 -translate-x-1/2 z-40 px-2 py-0.5 rounded-md bg-neutral-900 text-white dark:bg-white dark:text-neutral-950 text-[10px] font-mono font-medium shadow-md flex items-center gap-1 animate-bounce pointer-events-none whitespace-nowrap">
+                          <div className="absolute -top-7 left-1/2 -translate-x-1/2 z-40 px-2 py-0.5 rounded-md bg-[#0F172A] text-white dark:bg-white dark:text-[#0F172A] text-[10px] font-mono font-medium shadow-md flex items-center gap-1 animate-bounce pointer-events-none whitespace-nowrap">
                             <Check className="w-2.5 h-2.5 text-emerald-400 dark:text-emerald-600" />
                             <span>Copied {copiedFeedback.label}!</span>
                           </div>
@@ -268,12 +268,12 @@ export const ColorPaletteCell: React.FC<ColorPaletteCellProps> = ({ palette }) =
 
                 {/* Auto-Generated 50-950 Color Ramp for Primary Brand */}
                 {label === 'Primary Brand' && brandRamp && (
-                  <div className="mt-3 p-3 rounded-xl border border-neutral-200/80 dark:border-neutral-800/80 bg-neutral-50/50 dark:bg-neutral-950/40">
+                  <div className="mt-3 p-3 rounded-xl border border-[#E2E8F0] dark:border-slate-800 bg-[#F8FAFC]/70 dark:bg-[#0F172A]/60">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-[11px] font-mono text-neutral-500 dark:text-neutral-400 font-medium">
+                      <span className="text-[11px] font-mono text-[#0F172A]/70 dark:text-slate-400 font-semibold">
                         Auto-Generated Brand Ramp (50–950)
                       </span>
-                      <span className="text-[10px] font-mono text-neutral-400 dark:text-neutral-500">
+                      <span className="text-[10px] font-mono text-[#2563EB] dark:text-blue-400">
                         Tailwind &amp; Tokens Studio Ready
                       </span>
                     </div>
@@ -292,7 +292,7 @@ export const ColorPaletteCell: React.FC<ColorPaletteCellProps> = ({ palette }) =
                             className="group/ramp relative flex flex-col items-center cursor-pointer"
                           >
                             {isRampCopied && (
-                              <div className="absolute -top-7 left-1/2 -translate-x-1/2 z-40 px-1.5 py-0.5 rounded bg-neutral-900 text-white dark:bg-white dark:text-neutral-950 text-[9px] font-mono whitespace-nowrap shadow-md">
+                              <div className="absolute -top-7 left-1/2 -translate-x-1/2 z-40 px-1.5 py-0.5 rounded bg-[#0F172A] text-white dark:bg-white dark:text-[#0F172A] text-[9px] font-mono whitespace-nowrap shadow-md">
                                 Copied!
                               </div>
                             )}
@@ -300,7 +300,7 @@ export const ColorPaletteCell: React.FC<ColorPaletteCellProps> = ({ palette }) =
                               className="w-full h-8 rounded-md border border-black/10 dark:border-white/10 transition-transform group-hover/ramp:scale-110 shadow-2xs"
                               style={{ backgroundColor: hexVal }}
                             />
-                            <span className="text-[9px] font-mono text-neutral-500 dark:text-neutral-400 mt-1">
+                            <span className="text-[9px] font-mono text-[#0F172A]/70 dark:text-slate-400 mt-1">
                               {step}
                             </span>
                           </div>
