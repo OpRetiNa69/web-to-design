@@ -19,11 +19,10 @@ const newsreader = Newsreader({
 });
 
 export const metadata: Metadata = {
-  title: "web-to-design | Design System Extractor",
-  description: "Extract design tokens from any live website into structured design system data",
+  title: 'web-to-design | Websites to Design Systems',
+  description: 'Extract production-ready color palettes, typography ramps, and tokens from any live URL.',
   icons: {
-    icon: "/icon.png",
-    apple: "/icon.png",
+    icon: '/icon.png',
   },
 };
 
