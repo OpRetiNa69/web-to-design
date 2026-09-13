@@ -175,13 +175,13 @@ export default function Home() {
             {/* Empty / Initial State: Clean Editorial Board */}
             {!loading && !result && (
               <div className="max-w-3xl mx-auto text-center py-16 px-6 sm:px-10 rounded-2xl border border-neutral-200/80 dark:border-neutral-800/80 bg-white/80 dark:bg-neutral-900/70 backdrop-blur-md shadow-[0_2px_12px_rgba(0,0,0,0.03)] dark:shadow-none">
-                <div className="w-12 h-12 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800/80 flex items-center justify-center mx-auto mb-4 overflow-hidden p-1.5 shadow-xs">
+                <div className="h-9 flex items-center justify-center mx-auto mb-4">
                   <Image
-                    src="/icon.png"
+                    src="/logo.png"
                     alt="web-to-design"
-                    width={40}
-                    height={40}
-                    className="w-full h-full object-contain"
+                    width={180}
+                    height={46}
+                    className="h-7 w-auto object-contain dark:invert"
                   />
                 </div>
                 <h3 className="text-base font-semibold text-neutral-900 dark:text-neutral-100 mb-1.5 tracking-tight font-mono">
