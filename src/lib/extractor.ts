@@ -1,5 +1,5 @@
 import puppeteer, { type Browser, type Page } from 'puppeteer-core';
-import chromium from '@sparticuz/chromium';
+import chromium from '@sparticuz/chromium-min';
 import { colord, extend } from 'colord';
 import a11yPlugin from 'colord/plugins/a11y';
 import type {
@@ -49,7 +49,12 @@ export async function extractTokensFromUrl(targetUrl: string): Promise<Extractio
   let page: Page | null = null;
 
   try {
-    const executablePath = await chromium.executablePath();
+    const isVercel = !!process.env.VERCEL;
+    const executablePath = isVercel
+      ? await chromium.executablePath(
+          'https://github.com/Sparticuz/chromium/releases/download/v131.0.1/chromium-v131.0.1-pack.tar'
+        )
+      : await chromium.executablePath();
 
     browser = await puppeteer.launch({
       args: chromium.args,
