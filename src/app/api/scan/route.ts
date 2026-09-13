@@ -88,11 +88,15 @@ export async function POST(req: NextRequest): Promise<NextResponse<ScanResponse>
         system,
       },
     });
-  } catch (error: unknown) {
-    console.error('Error extracting and normalizing design tokens:', error);
+  } catch (err: any) {
+    console.error('Extraction fatal error:', err);
 
     const errorMessage =
-      error instanceof Error ? error.message : 'An unexpected error occurred during extraction.';
+      err instanceof Error
+        ? err.message
+        : typeof err === 'string'
+        ? err
+        : 'Scraping process failed or timed out.';
 
     // Discriminate timeout errors
     const isTimeout =
@@ -103,8 +107,8 @@ export async function POST(req: NextRequest): Promise<NextResponse<ScanResponse>
       {
         success: false,
         error: isTimeout
-          ? `Page request timed out while loading. Try a different URL or ensure the site is accessible.`
-          : `Failed to extract tokens: ${errorMessage}`,
+          ? 'Page request timed out while loading. Try a different URL or ensure the site is accessible.'
+          : (errorMessage || 'Scraping process failed or timed out.'),
       },
       { status: isTimeout ? 504 : 500 }
     );

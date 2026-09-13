@@ -59,12 +59,22 @@
    npx playwright install chromium
    ```
 
-4. Start the development server:
+4. For production deployment (Vercel, Render, Railway, Docker, etc.):
+   Configure the build command as:
+   ```bash
+   npx playwright install --with-deps chromium && npm run build
+   ```
+   Or use the provided npm script:
+   ```bash
+   npm run build:deploy
+   ```
+
+5. Start the development server:
    ```bash
    npm run dev
    ```
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser.
+6. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 

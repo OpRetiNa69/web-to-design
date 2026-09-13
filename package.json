@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:deploy": "npx playwright install --with-deps chromium && npm run build",
     "start": "next start",
     "lint": "eslint"
   },

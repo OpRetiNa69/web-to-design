@@ -50,16 +50,24 @@ export default function Home() {
     setError(null);
 
     try {
-      const response = await fetch('/api/scan', {
+      const res = await fetch('/api/scan', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url: scanUrl }),
       });
 
-      const data = await response.json();
+      const rawText = await res.text();
+      let data;
+      try {
+        data = rawText ? JSON.parse(rawText) : null;
+      } catch {
+        throw new Error(
+          `Server returned unexpected response (Status ${res.status}): ${rawText.slice(0, 100)}`
+        );
+      }
 
-      if (!response.ok || !data.success) {
-        throw new Error(data.error || 'Failed to extract design tokens.');
+      if (!res.ok || !data?.success) {
+        throw new Error(data?.error || `Failed with status ${res.status}`);
       }
 
       setResult(data.data);
