@@ -49,6 +49,8 @@ export async function extractTokensFromUrl(targetUrl: string): Promise<Extractio
   let page: Page | null = null;
 
   try {
+    chromium.setGraphicsMode = false;
+
     const isVercel = !!process.env.VERCEL;
     const executablePath = isVercel
       ? await chromium.executablePath(
@@ -57,7 +59,15 @@ export async function extractTokensFromUrl(targetUrl: string): Promise<Extractio
       : await chromium.executablePath();
 
     browser = await puppeteer.launch({
-      args: chromium.args,
+      args: [
+        ...chromium.args,
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+        '--disable-gpu',
+        '--single-process',
+        '--no-zygote',
+      ],
       defaultViewport: { width: 1440, height: 900 },
       executablePath,
       headless: true,
