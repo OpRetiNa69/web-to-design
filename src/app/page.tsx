@@ -67,7 +67,13 @@ export default function Home() {
       }
 
       if (!res.ok || !data?.success) {
-        throw new Error(data?.error || `Failed with status ${res.status}`);
+        const serverError =
+          (typeof data?.error === 'string' && data.error) ||
+          (typeof data?.message === 'string' && data.message) ||
+          (data?.error && typeof data.error === 'object' && (data.error.message || JSON.stringify(data.error))) ||
+          (typeof data === 'string' ? data : null) ||
+          `Failed with status ${res.status}${rawText ? `: ${rawText.slice(0, 150)}` : ''}`;
+        throw new Error(serverError);
       }
 
       setResult(data.data);

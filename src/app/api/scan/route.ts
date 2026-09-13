@@ -103,12 +103,15 @@ export async function POST(req: NextRequest): Promise<NextResponse<ScanResponse>
       errorMessage.toLowerCase().includes('timeout') ||
       errorMessage.toLowerCase().includes('timed out');
 
+    const finalError = isTimeout
+      ? 'Page request timed out while loading. Try a different URL or ensure the site is accessible.'
+      : (errorMessage || 'Scraping process failed or timed out.');
+
     return NextResponse.json(
       {
         success: false,
-        error: isTimeout
-          ? 'Page request timed out while loading. Try a different URL or ensure the site is accessible.'
-          : (errorMessage || 'Scraping process failed or timed out.'),
+        error: finalError,
+        message: finalError,
       },
       { status: isTimeout ? 504 : 500 }
     );
