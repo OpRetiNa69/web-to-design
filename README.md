@@ -62,7 +62,7 @@
 4. For production deployment (Vercel, Render, Railway, Docker, etc.):
    Configure the build command as:
    ```bash
-   npx playwright install --with-deps chromium && npm run build
+   npx playwright install chromium && npm run build
    ```
    Or use the provided npm script:
    ```bash

@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npx playwright install --with-deps chromium && next build",
-    "build:deploy": "npx playwright install --with-deps chromium && next build",
-    "postinstall": "npx playwright install --with-deps chromium || true",
+    "build": "npx playwright install chromium && next build",
+    "build:deploy": "npx playwright install chromium && next build",
+    "postinstall": "npx playwright install chromium || true",
     "start": "next start",
     "lint": "eslint"
   },
