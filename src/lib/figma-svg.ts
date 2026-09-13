@@ -52,7 +52,7 @@ export function generateFigmaTokenSheetSvg(
     <text x="${paddingX + 70}" y="${currentY + 16}" text-anchor="middle" font-family="Inter, -apple-system, sans-serif" font-size="10" font-weight="600" fill="#A1A1AA" letter-spacing="1">DESIGN TOKENS</text>
     
     <text x="${paddingX}" y="${currentY + 60}" font-family="Inter, -apple-system, sans-serif" font-size="32" font-weight="700" fill="#FAFAFA" letter-spacing="-0.5">${escapeXml(domain)}</text>
-    <text x="${paddingX}" y="${currentY + 84}" font-family="Inter, -apple-system, sans-serif" font-size="13" font-weight="400" fill="#71717A">Extracted via site-to-tokens • ${escapeXml(dateStr)} • W3C / Figma Compatible</text>
+    <text x="${paddingX}" y="${currentY + 84}" font-family="Inter, -apple-system, sans-serif" font-size="13" font-weight="400" fill="#71717A">Extracted via web-to-design • ${escapeXml(dateStr)} • W3C / Figma Compatible</text>
     
     <line x1="${paddingX}" y1="${currentY + 104}" x2="${paddingX + contentWidth}" y2="${currentY + 104}" stroke="#27272A" stroke-width="1" />
   </g>

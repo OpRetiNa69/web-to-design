@@ -1,8 +1,8 @@
-# site-to-tokens
+# web-to-design
 
 > **Reverse-engineer design systems from any live website into production-ready tokens.**
 
-`site-to-tokens` scans any public URL using an automated headless browser pipeline, analyzes the rendered DOM and computed styles, extracts the core design primitives (colors, typography, radii, elevations), and exports them directly to **Tailwind CSS**, **Figma Variables**, **Tokens Studio (W3C DTCG)**, and **CSS Custom Properties**.
+`web-to-design` scans any public URL using an automated headless browser pipeline, analyzes the rendered DOM and computed styles, extracts the core design primitives (colors, typography, radii, elevations), and exports them directly to **Tailwind CSS**, **Figma Variables**, **Tokens Studio (W3C DTCG)**, and **CSS Custom Properties**.
 
 ---
 

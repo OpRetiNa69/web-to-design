@@ -19,8 +19,12 @@ const newsreader = Newsreader({
 });
 
 export const metadata: Metadata = {
-  title: "site-to-tokens | Design System Extractor",
+  title: "web-to-design | Design System Extractor",
   description: "Extract design tokens from any live website into structured design system data",
+  icons: {
+    icon: "/icon.png",
+    apple: "/icon.png",
+  },
 };
 
 export default function RootLayout({

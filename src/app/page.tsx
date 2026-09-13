@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import type { ScanData } from '@/types/tokens';
 import { Navbar } from '@/components/Navbar';
 import { HeroInputBar } from '@/components/HeroInputBar';
@@ -174,8 +175,14 @@ export default function Home() {
             {/* Empty / Initial State: Clean Editorial Board */}
             {!loading && !result && (
               <div className="max-w-3xl mx-auto text-center py-16 px-6 sm:px-10 rounded-2xl border border-neutral-200/80 dark:border-neutral-800/80 bg-white/80 dark:bg-neutral-900/70 backdrop-blur-md shadow-[0_2px_12px_rgba(0,0,0,0.03)] dark:shadow-none">
-                <div className="w-12 h-12 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800/80 flex items-center justify-center mx-auto mb-4 text-neutral-500 dark:text-neutral-400">
-                  <Layers className="w-5 h-5" />
+                <div className="w-12 h-12 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800/80 flex items-center justify-center mx-auto mb-4 overflow-hidden p-1.5 shadow-xs">
+                  <Image
+                    src="/icon.png"
+                    alt="web-to-design"
+                    width={40}
+                    height={40}
+                    className="w-full h-full object-contain"
+                  />
                 </div>
                 <h3 className="text-base font-semibold text-neutral-900 dark:text-neutral-100 mb-1.5 tracking-tight font-mono">
                   Ready for Ingestion
@@ -301,7 +308,7 @@ export default function Home() {
 
         {/* Clean Editorial Footer */}
         <footer className="mt-24 border-t border-neutral-200/60 dark:border-neutral-800/60 py-8 text-center text-xs text-neutral-400 dark:text-neutral-500 font-mono">
-          <span>site-to-tokens • Design System Extractor • Editorial Edition</span>
+          <span>web-to-design • Design System Extractor • Editorial Edition</span>
         </footer>
       </main>
     </div>
