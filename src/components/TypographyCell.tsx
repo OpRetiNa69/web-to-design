@@ -160,26 +160,26 @@ export const TypographyCell: React.FC<TypographyCellProps> = ({ typeScale, fonts
   };
 
   return (
-    <div className="bg-white dark:bg-[#0F172A]/90 border border-[#E2E8F0] dark:border-slate-800 rounded-2xl shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition-colors duration-200 p-6 flex flex-col justify-between h-full">
+    <div className="rounded-2xl border border-neutral-200/80 dark:border-neutral-800/80 bg-white/80 dark:bg-neutral-900/70 backdrop-blur-md shadow-[0_2px_12px_rgba(0,0,0,0.03)] dark:shadow-none hover:border-neutral-300 dark:hover:border-neutral-700 transition-colors duration-200 p-6 flex flex-col justify-between h-full">
       <div>
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 mb-4 border-b border-[#E2E8F0] dark:border-slate-800 gap-3">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 mb-4 border-b border-neutral-200/80 dark:border-neutral-800/80 gap-3">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-blue-50 dark:bg-blue-950 text-[#2563EB] dark:text-blue-400 border border-blue-200 dark:border-blue-800 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-xl bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 border border-neutral-200/60 dark:border-neutral-700/60 flex items-center justify-center">
               <Type className="w-4 h-4" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="text-sm font-semibold tracking-tight text-[#0F172A] dark:text-white">
-                  Typography &amp; Hierarchy
+                <h3 className="text-sm font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">
+                  Typography & Hierarchy
                 </h3>
                 {fontLoaded && (
-                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950 text-[#2563EB] dark:text-blue-400 border border-blue-200 dark:border-blue-800 flex items-center gap-1 font-mono">
-                    <Sparkles className="w-2.5 h-2.5 text-[#2563EB] dark:text-blue-400" /> High-Fidelity
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 border border-neutral-200/60 dark:border-neutral-700/60 flex items-center gap-1 font-mono">
+                    <Sparkles className="w-2.5 h-2.5 text-rose-500 dark:text-rose-400" /> High-Fidelity
                   </span>
                 )}
               </div>
-              <p className="text-xs text-[#0F172A]/70 dark:text-slate-400">
+              <p className="text-xs text-neutral-600 dark:text-neutral-400">
                 Computed font-family stacks, proportional type scaling, and dynamic line-heights.
               </p>
             </div>
@@ -188,10 +188,10 @@ export const TypographyCell: React.FC<TypographyCellProps> = ({ typeScale, fonts
           {/* Font Family Badges with Fallback chains and Fallback indicator */}
           <div className="flex items-center gap-2 flex-wrap text-xs">
             {/* Heading Font Badge */}
-            <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800/80 border border-[#E2E8F0] dark:border-slate-700 text-[#0F172A]/80 dark:text-slate-200 font-mono text-[11px]">
-              <span className="text-slate-400 dark:text-slate-500 font-sans uppercase text-[10px]">Head:</span>
-              <span className="font-semibold text-[#0F172A] dark:text-white">{fonts.heading}</span>
-              <span className="text-slate-400 dark:text-slate-500 text-[10px]">, sans-serif</span>
+            <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-neutral-100/80 dark:bg-neutral-800/70 border border-neutral-200/60 dark:border-neutral-700/60 text-neutral-700 dark:text-neutral-300 font-mono text-[11px]">
+              <span className="text-neutral-400 dark:text-neutral-500 font-sans uppercase text-[10px]">Head:</span>
+              <span className="font-semibold text-neutral-800 dark:text-neutral-200">{fonts.heading}</span>
+              <span className="text-neutral-400 dark:text-neutral-600 text-[10px]">, sans-serif</span>
               {fallbackFonts.has(fonts.heading) && (
                 <span
                   title="Rendering via local system fallback stack"
@@ -203,10 +203,10 @@ export const TypographyCell: React.FC<TypographyCellProps> = ({ typeScale, fonts
             </div>
 
             {/* Body Font Badge */}
-            <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800/80 border border-[#E2E8F0] dark:border-slate-700 text-[#0F172A]/80 dark:text-slate-200 font-mono text-[11px]">
-              <span className="text-slate-400 dark:text-slate-500 font-sans uppercase text-[10px]">Body:</span>
-              <span className="font-semibold text-[#0F172A] dark:text-white">{fonts.body}</span>
-              <span className="text-slate-400 dark:text-slate-500 text-[10px]">, sans-serif</span>
+            <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-neutral-100/80 dark:bg-neutral-800/70 border border-neutral-200/60 dark:border-neutral-700/60 text-neutral-700 dark:text-neutral-300 font-mono text-[11px]">
+              <span className="text-neutral-400 dark:text-neutral-500 font-sans uppercase text-[10px]">Body:</span>
+              <span className="font-semibold text-neutral-800 dark:text-neutral-200">{fonts.body}</span>
+              <span className="text-neutral-400 dark:text-neutral-600 text-[10px]">, sans-serif</span>
               {fallbackFonts.has(fonts.body) && (
                 <span
                   title="Rendering via local system fallback stack"
@@ -219,10 +219,10 @@ export const TypographyCell: React.FC<TypographyCellProps> = ({ typeScale, fonts
           </div>
         </div>
 
-        {/* Live Editable Specimen Input Bar */}
+        {/* Live Editable Specimen Input Bar - Crisp Borderless Container */}
         <div className="mb-5">
-          <div className="relative flex items-center bg-white dark:bg-[#0F172A] rounded-xl px-4 py-2.5 text-xs transition-all border border-[#E2E8F0] dark:border-slate-800 focus-within:ring-2 focus-within:ring-[#2563EB]/40 focus-within:border-[#2563EB]">
-            <SlidersHorizontal className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 mr-2.5 flex-shrink-0" />
+          <div className="relative flex items-center bg-neutral-100/70 dark:bg-neutral-950/60 rounded-xl px-4 py-2.5 text-xs transition-all focus-within:ring-1 focus-within:ring-neutral-300 dark:focus-within:ring-neutral-700">
+            <SlidersHorizontal className="w-3.5 h-3.5 text-neutral-400 dark:text-neutral-500 mr-2.5 flex-shrink-0" />
             <input
               id="specimen-input"
               suppressHydrationWarning
@@ -230,7 +230,7 @@ export const TypographyCell: React.FC<TypographyCellProps> = ({ typeScale, fonts
               value={specimen}
               onChange={(e) => setSpecimen(e.target.value)}
               placeholder="The quick brown fox jumps over the lazy dog..."
-              className="bg-transparent text-[#0F172A] dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 w-full focus:outline-none text-xs"
+              className="bg-transparent text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 dark:placeholder-neutral-500 w-full focus:outline-none text-xs"
             />
             {specimen && (
               <button
@@ -266,11 +266,11 @@ export const TypographyCell: React.FC<TypographyCellProps> = ({ typeScale, fonts
                   setContextMenuToken(contextMenuToken === tokenKey ? null : tokenKey);
                 }}
                 title="Click to copy font-size, right-click or use buttons for other formats"
-                className="group relative p-3 rounded-xl border border-[#E2E8F0] dark:border-slate-800 bg-[#F8FAFC]/70 dark:bg-[#0F172A]/60 hover:border-[#2563EB]/40 transition-colors cursor-pointer"
+                className="group relative p-3 rounded-xl border border-neutral-200/80 dark:border-neutral-800/80 bg-neutral-50/40 dark:bg-neutral-950/40 hover:border-neutral-300 dark:hover:border-neutral-700 transition-colors cursor-pointer"
               >
                 {/* Temporary Checkmark Feedback Popover */}
                 {isCopied && (
-                  <div className="absolute -top-7 left-1/2 -translate-x-1/2 z-40 px-2 py-0.5 rounded-md bg-[#0F172A] text-white dark:bg-white dark:text-[#0F172A] text-[10px] font-mono font-medium shadow-md flex items-center gap-1 animate-bounce pointer-events-none whitespace-nowrap">
+                  <div className="absolute -top-7 left-1/2 -translate-x-1/2 z-40 px-2 py-0.5 rounded-md bg-neutral-900 text-white dark:bg-white dark:text-neutral-950 text-[10px] font-mono font-medium shadow-md flex items-center gap-1 animate-bounce pointer-events-none whitespace-nowrap">
                     <Check className="w-2.5 h-2.5 text-emerald-400 dark:text-emerald-600" />
                     <span>Copied {copiedFeedback.label}!</span>
                   </div>
@@ -279,45 +279,45 @@ export const TypographyCell: React.FC<TypographyCellProps> = ({ typeScale, fonts
                 {/* Subtle Context Menu Popover */}
                 {contextMenuToken === tokenKey && (
                   <div
-                    className="absolute top-2 right-2 z-30 min-w-[140px] py-1 bg-white dark:bg-[#0F172A] border border-[#E2E8F0] dark:border-slate-800 rounded-xl shadow-xl text-[11px] font-mono animate-in fade-in zoom-in-95"
+                    className="absolute top-2 right-2 z-30 min-w-[140px] py-1 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl shadow-xl text-[11px] font-mono animate-in fade-in zoom-in-95"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    <div className="px-2.5 py-1 text-[9px] text-slate-400 uppercase tracking-wider font-sans border-b border-[#E2E8F0] dark:border-slate-800 mb-0.5">
+                    <div className="px-2.5 py-1 text-[9px] text-neutral-400 uppercase tracking-wider font-sans border-b border-neutral-100 dark:border-neutral-800 mb-0.5">
                       Copy Format
                     </div>
                     <button
                       type="button"
                       onClick={() => handleCopy(item.fontSize, 'size', tokenKey)}
-                      className="w-full text-left px-2.5 py-1 text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-slate-800/80 flex items-center justify-between cursor-pointer"
+                      className="w-full text-left px-2.5 py-1 text-neutral-700 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center justify-between cursor-pointer"
                     >
                       <span>Size</span>
-                      <span className="text-[10px] text-slate-400">{item.fontSize}</span>
+                      <span className="text-[10px] text-neutral-400">{item.fontSize}</span>
                     </button>
                     <button
                       type="button"
                       onClick={() => handleCopy(varSyntax, 'var()', tokenKey)}
-                      className="w-full text-left px-2.5 py-1 text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-slate-800/80 flex items-center justify-between cursor-pointer"
+                      className="w-full text-left px-2.5 py-1 text-neutral-700 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center justify-between cursor-pointer"
                     >
                       <span>CSS Var</span>
-                      <span className="text-[9px] text-slate-400 truncate max-w-[65px]">{varSyntax}</span>
+                      <span className="text-[9px] text-neutral-400 truncate max-w-[65px]">{varSyntax}</span>
                     </button>
                     <button
                       type="button"
                       onClick={() => handleCopy(twSyntax, 'class', tokenKey)}
-                      className="w-full text-left px-2.5 py-1 text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-slate-800/80 flex items-center justify-between cursor-pointer"
+                      className="w-full text-left px-2.5 py-1 text-neutral-700 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center justify-between cursor-pointer"
                     >
                       <span>Tailwind</span>
-                      <span className="text-[9px] text-slate-400 truncate max-w-[65px]">{twSyntax}</span>
+                      <span className="text-[9px] text-neutral-400 truncate max-w-[65px]">{twSyntax}</span>
                     </button>
                   </div>
                 )}
 
                 <div className="flex items-center justify-between text-xs mb-1 font-mono">
                   <div className="flex items-center gap-2">
-                    <span className="px-2 py-0.5 rounded-md bg-blue-50 dark:bg-blue-950 text-[#2563EB] dark:text-blue-400 border border-blue-200 dark:border-blue-800 text-[10px] uppercase font-bold tracking-wider">
+                    <span className="px-2 py-0.5 rounded-md bg-neutral-200/70 dark:bg-neutral-800/80 text-neutral-700 dark:text-neutral-300 text-[10px] uppercase font-bold tracking-wider">
                       {item.name}
                     </span>
-                    <span className="text-[#0F172A]/60 dark:text-slate-400 text-[11px]">&lt;{item.sampleTag}&gt;</span>
+                    <span className="text-neutral-400 dark:text-neutral-500 text-[11px]">&lt;{item.sampleTag}&gt;</span>
                     {isFallback && (
                       <span
                         title="Rendering via local system fallback stack"

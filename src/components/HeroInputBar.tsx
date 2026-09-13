@@ -72,8 +72,8 @@ export const HeroInputBar: React.FC<HeroInputBarProps> = ({
   return (
     <div className="w-full max-w-xl mx-auto">
       <form onSubmit={handleSubmit} suppressHydrationWarning className="relative group">
-        <div className="rounded-2xl border border-[#E2E8F0] dark:border-slate-800 bg-white dark:bg-[#0F172A]/90 p-1.5 pl-5 shadow-sm max-w-xl mx-auto flex items-center gap-2 focus-within:border-[#2563EB] focus-within:ring-2 focus-within:ring-[#2563EB]/40 transition-all backdrop-blur-md">
-          <div className="text-slate-400 dark:text-slate-500 flex items-center pointer-events-none">
+        <div className="rounded-full border border-neutral-200/90 dark:border-neutral-800 bg-white/90 dark:bg-neutral-900/90 p-1.5 pl-5 shadow-sm max-w-xl mx-auto flex items-center gap-2 focus-within:border-neutral-400 dark:focus-within:border-neutral-600 focus-within:ring-4 focus-within:ring-neutral-200/40 dark:focus-within:ring-neutral-800/40 transition-all backdrop-blur-md">
+          <div className="text-neutral-400 dark:text-neutral-500 flex items-center pointer-events-none">
             <Search className="w-4 h-4" />
           </div>
 
@@ -86,11 +86,11 @@ export const HeroInputBar: React.FC<HeroInputBarProps> = ({
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             disabled={loading}
-            className="flex-1 bg-transparent py-2 text-[#0F172A] dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 text-sm focus:outline-none"
+            className="flex-1 bg-transparent py-2 text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 dark:placeholder-neutral-500 text-sm focus:outline-none"
           />
 
           {/* Shortcut badge */}
-          <div className="hidden sm:flex items-center gap-0.5 px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-[10px] font-mono text-slate-500 dark:text-slate-400 pointer-events-none border border-[#E2E8F0] dark:border-slate-700">
+          <div className="hidden sm:flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-800 text-[10px] font-mono text-neutral-400 dark:text-neutral-500 pointer-events-none border border-neutral-200/60 dark:border-neutral-700/60">
             <Command className="w-2.5 h-2.5" />
             <span>K</span>
           </div>
@@ -100,7 +100,7 @@ export const HeroInputBar: React.FC<HeroInputBarProps> = ({
             type="submit"
             suppressHydrationWarning
             disabled={loading || !url.trim()}
-            className="bg-[#2563EB] text-white hover:bg-[#1D4ED8] rounded-xl px-5 py-2 text-sm font-medium shadow-sm transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0 flex items-center gap-1.5 active:scale-95"
+            className="bg-neutral-900 text-white hover:bg-neutral-800 dark:bg-white dark:text-neutral-950 dark:hover:bg-neutral-200 rounded-full px-5 py-2 text-sm font-medium transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0 flex items-center gap-1.5 active:scale-95"
           >
             {loading ? (
               <>
@@ -119,12 +119,12 @@ export const HeroInputBar: React.FC<HeroInputBarProps> = ({
 
       {/* Perceptual Loading Stage Indicator */}
       {loading && (
-        <div className="mt-4 flex items-center justify-between gap-3 text-xs text-[#0F172A]/70 dark:text-slate-400 animate-fade-in bg-white dark:bg-[#0F172A]/90 border border-[#E2E8F0] dark:border-slate-800 py-2 px-4 rounded-xl max-w-sm mx-auto shadow-sm backdrop-blur-md">
+        <div className="mt-4 flex items-center justify-between gap-3 text-xs text-neutral-600 dark:text-neutral-300 animate-fade-in bg-white/80 dark:bg-neutral-900/80 border border-neutral-200/80 dark:border-neutral-800/80 py-2 px-4 rounded-full max-w-sm mx-auto shadow-sm backdrop-blur-md">
           <div className="flex items-center gap-2 truncate">
-            <Sparkles className="w-3.5 h-3.5 text-[#2563EB] dark:text-blue-400 animate-pulse flex-shrink-0" />
+            <Sparkles className="w-3.5 h-3.5 text-rose-500 dark:text-rose-400 animate-pulse flex-shrink-0" />
             <span className="font-medium truncate text-xs">{currentStage.message}</span>
           </div>
-          <span className="font-mono text-[10px] text-slate-400 dark:text-slate-500 flex-shrink-0">
+          <span className="font-mono text-[10px] text-neutral-400 dark:text-neutral-500 flex-shrink-0">
             {currentStage.step}
           </span>
         </div>
@@ -133,7 +133,7 @@ export const HeroInputBar: React.FC<HeroInputBarProps> = ({
       {/* Quick Demo Chips */}
       {!loading && (
         <div className="mt-4 flex items-center justify-center gap-2 flex-wrap text-xs">
-          <span className="text-[#0F172A]/60 dark:text-slate-400 text-[11px] font-mono">
+          <span className="text-neutral-400 dark:text-neutral-500 text-[11px] font-mono">
             Try:
           </span>
           {PRESET_PILLS.map((preset) => (
@@ -146,7 +146,7 @@ export const HeroInputBar: React.FC<HeroInputBarProps> = ({
                 onScan(preset.url);
               }}
               disabled={loading}
-              className="rounded-full bg-blue-50 dark:bg-blue-950 text-[#2563EB] dark:text-blue-400 border border-blue-200 dark:border-blue-800 hover:bg-blue-100 dark:hover:bg-blue-900/60 px-3 py-1 text-xs font-mono font-medium transition-all cursor-pointer active:scale-95 disabled:pointer-events-none"
+              className="rounded-full border border-neutral-200 dark:border-neutral-800 bg-white/50 dark:bg-neutral-900/50 text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white hover:border-neutral-400 dark:hover:border-neutral-600 px-3 py-1 text-xs transition-all cursor-pointer active:scale-95 disabled:pointer-events-none font-mono"
             >
               {preset.label}
             </button>

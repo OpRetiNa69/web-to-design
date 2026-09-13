@@ -9,17 +9,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      colors: {
-        brand: {
-          primary: '#2563EB',
-          hover: '#1D4ED8',
-          dark: '#0F172A',
-          surface: '#F8FAFC',
-          border: '#E2E8F0',
-        },
-      },
       fontFamily: {
-        sans: ['var(--font-inter)', 'Inter', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-geist-sans)', 'sans-serif'],
+        serif: ['var(--font-newsreader)', 'Newsreader', 'Playfair Display', 'Georgia', 'serif'],
         mono: ['var(--font-geist-mono)', 'monospace'],
       },
     },

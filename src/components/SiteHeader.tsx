@@ -73,11 +73,11 @@ export const SiteHeader: React.FC<SiteHeaderProps> = ({ data, onRescan, loading 
   };
 
   return (
-    <div className="bg-white dark:bg-[#0F172A]/90 border border-[#E2E8F0] dark:border-slate-800 rounded-2xl shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition-colors duration-200 p-6">
+    <div className="rounded-2xl border border-neutral-200/80 dark:border-neutral-800/80 bg-white/80 dark:bg-neutral-900/70 backdrop-blur-md shadow-[0_2px_12px_rgba(0,0,0,0.03)] dark:shadow-none hover:border-neutral-300 dark:hover:border-neutral-700 transition-colors duration-200 p-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-5">
         {/* Left: Favicon & Domain Title */}
         <div className="flex items-center gap-4 min-w-0">
-          <div className="w-12 h-12 rounded-xl bg-slate-50 dark:bg-slate-900 border border-[#E2E8F0] dark:border-slate-800 flex items-center justify-center p-2.5 flex-shrink-0 overflow-hidden">
+          <div className="w-12 h-12 rounded-xl bg-neutral-100 dark:bg-neutral-950 border border-neutral-200/80 dark:border-neutral-800/80 flex items-center justify-center p-2.5 flex-shrink-0 overflow-hidden">
             <img
               src={faviconUrl}
               alt={`${domain} icon`}
@@ -90,7 +90,7 @@ export const SiteHeader: React.FC<SiteHeaderProps> = ({ data, onRescan, loading 
 
           <div className="min-w-0">
             <div className="flex items-center gap-2 mb-1">
-              <span className="text-[10px] font-medium font-mono uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950 text-[#2563EB] dark:text-blue-400 border border-blue-200 dark:border-blue-800 inline-flex items-center gap-1">
+              <span className="text-[10px] font-medium font-mono uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 inline-flex items-center gap-1">
                 <CheckCircle2 className="w-2.5 h-2.5" />
                 <span>Extracted</span>
               </span>
@@ -98,25 +98,25 @@ export const SiteHeader: React.FC<SiteHeaderProps> = ({ data, onRescan, loading 
                 href={data.raw.url}
                 target="_blank"
                 rel="noreferrer"
-                className="text-xs font-mono text-[#0F172A]/70 dark:text-slate-400 hover:text-[#2563EB] dark:hover:text-blue-400 inline-flex items-center gap-1 transition-colors"
+                className="text-xs font-mono text-neutral-400 dark:text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-200 inline-flex items-center gap-1 transition-colors"
               >
                 <span className="truncate max-w-[180px] sm:max-w-xs">{domain}</span>
                 <ExternalLink className="w-3 h-3" />
               </a>
             </div>
-            <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-[#0F172A] dark:text-white truncate max-w-xl">
+            <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-neutral-900 dark:text-white truncate max-w-xl">
               {data.raw.title || domain}
             </h2>
           </div>
         </div>
 
         {/* Right: Quick Stats, Figma Action & Solid Rescan Button */}
-        <div className="flex items-center gap-3 self-start sm:self-auto pt-3 sm:pt-0 border-t sm:border-t-0 border-[#E2E8F0] dark:border-slate-800 w-full sm:w-auto justify-between sm:justify-end flex-wrap">
+        <div className="flex items-center gap-3 self-start sm:self-auto pt-3 sm:pt-0 border-t sm:border-t-0 border-neutral-200/80 dark:border-neutral-800/80 w-full sm:w-auto justify-between sm:justify-end flex-wrap">
           <div className="hidden lg:flex items-center gap-2 text-xs font-mono">
-            <span className="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800/80 border border-[#E2E8F0] dark:border-slate-700 text-[#0F172A]/70 dark:text-slate-300 text-[11px]">
+            <span className="px-3 py-1 rounded-full bg-neutral-100 dark:bg-neutral-800/70 border border-neutral-200/60 dark:border-neutral-700/60 text-neutral-600 dark:text-neutral-300 text-[11px]">
               {totalColors} Colors
             </span>
-            <span className="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800/80 border border-[#E2E8F0] dark:border-slate-700 text-[#0F172A]/70 dark:text-slate-300 text-[11px]">
+            <span className="px-3 py-1 rounded-full bg-neutral-100 dark:bg-neutral-800/70 border border-neutral-200/60 dark:border-neutral-700/60 text-neutral-600 dark:text-neutral-300 text-[11px]">
               {data.system.typeScale.length} Type Steps
             </span>
           </div>
@@ -125,7 +125,7 @@ export const SiteHeader: React.FC<SiteHeaderProps> = ({ data, onRescan, loading 
           <button
             type="button"
             onClick={handleCopyFigma}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-blue-50 hover:bg-blue-100 dark:bg-blue-950 dark:hover:bg-blue-900/60 text-[#2563EB] dark:text-blue-400 text-xs font-medium transition-colors cursor-pointer active:scale-95 border border-blue-200 dark:border-blue-800"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-neutral-800 dark:text-neutral-200 text-xs font-medium transition-colors cursor-pointer active:scale-95 border border-neutral-200 dark:border-neutral-700"
             title="Copy SVG vector token sheet for Figma"
           >
             {figmaCopied ? (
@@ -145,7 +145,7 @@ export const SiteHeader: React.FC<SiteHeaderProps> = ({ data, onRescan, loading 
             type="button"
             onClick={onRescan}
             disabled={loading}
-            className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-medium shadow-sm transition-all cursor-pointer active:scale-95 disabled:opacity-50 flex-shrink-0"
+            className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-neutral-900 hover:bg-neutral-800 text-white dark:bg-white dark:hover:bg-neutral-200 dark:text-neutral-950 text-xs font-medium transition-colors cursor-pointer active:scale-95 disabled:opacity-50 flex-shrink-0"
             title="Re-extract design system"
           >
             <RotateCw className={`w-3 h-3 ${loading ? 'animate-spin' : ''}`} />

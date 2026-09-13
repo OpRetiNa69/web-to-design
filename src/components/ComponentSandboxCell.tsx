@@ -46,33 +46,33 @@ export const ComponentSandboxCell: React.FC<ComponentSandboxCellProps> = ({ syst
   const currentRadius = system.radii[activeRadiusIndex]?.value || '12px';
 
   return (
-    <div className="bg-white dark:bg-[#0F172A]/90 border border-[#E2E8F0] dark:border-slate-800 rounded-2xl shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition-colors duration-200 p-6 flex flex-col justify-between h-full">
+    <div className="rounded-2xl border border-neutral-200/80 dark:border-neutral-800/80 bg-white/80 dark:bg-neutral-900/70 backdrop-blur-md shadow-[0_2px_12px_rgba(0,0,0,0.03)] dark:shadow-none hover:border-neutral-300 dark:hover:border-neutral-700 transition-colors duration-200 p-6 flex flex-col justify-between h-full">
       <div>
         {/* Header */}
-        <div className="flex items-center justify-between pb-4 mb-4 border-b border-[#E2E8F0] dark:border-slate-800">
+        <div className="flex items-center justify-between pb-4 mb-4 border-b border-neutral-200/80 dark:border-neutral-800/80">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-blue-50 dark:bg-blue-950 text-[#2563EB] dark:text-blue-400 border border-blue-200 dark:border-blue-800 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-xl bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 border border-neutral-200/60 dark:border-neutral-700/60 flex items-center justify-center">
               <LayoutDashboard className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="text-sm font-semibold tracking-tight text-[#0F172A] dark:text-white">
+              <h3 className="text-sm font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">
                 Rendered UI Primitives
               </h3>
-              <p className="text-xs text-[#0F172A]/70 dark:text-slate-400">
+              <p className="text-xs text-neutral-600 dark:text-neutral-400">
                 Real DOM elements dynamically rendered using your extracted tokens.
               </p>
             </div>
           </div>
 
           {/* Segmented Switch for Surface Preview */}
-          <div className="flex items-center bg-slate-100 dark:bg-slate-900/90 p-0.5 rounded-full border border-[#E2E8F0] dark:border-slate-800">
+          <div className="flex items-center bg-neutral-100 dark:bg-neutral-950 p-0.5 rounded-full border border-neutral-200/80 dark:border-neutral-800">
             <button
               type="button"
               onClick={() => setSandboxTheme('light')}
               className={`px-2.5 py-1 rounded-full text-xs transition-colors cursor-pointer flex items-center gap-1.5 ${
                 isLight
-                  ? 'bg-white dark:bg-slate-800 text-[#2563EB] dark:text-blue-400 shadow-2xs font-medium'
-                  : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200'
+                  ? 'bg-white dark:bg-neutral-800 text-amber-600 dark:text-amber-300 shadow-2xs font-medium'
+                  : 'text-neutral-500 hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-200'
               }`}
               title="Preview in Light Canvas"
             >
@@ -84,8 +84,8 @@ export const ComponentSandboxCell: React.FC<ComponentSandboxCellProps> = ({ syst
               onClick={() => setSandboxTheme('dark')}
               className={`px-2.5 py-1 rounded-full text-xs transition-colors cursor-pointer flex items-center gap-1.5 ${
                 !isLight
-                  ? 'bg-white dark:bg-slate-800 text-[#2563EB] dark:text-blue-400 shadow-2xs font-medium'
-                  : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200'
+                  ? 'bg-white dark:bg-neutral-800 text-indigo-600 dark:text-indigo-300 shadow-2xs font-medium'
+                  : 'text-neutral-500 hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-200'
               }`}
               title="Preview in Dark Canvas"
             >
@@ -230,7 +230,7 @@ export const ComponentSandboxCell: React.FC<ComponentSandboxCellProps> = ({ syst
 
         {/* Corner Radius Tester Footer */}
         {system.radii.length > 0 && (
-          <div className="flex items-center justify-between pt-4 mt-3 text-xs text-[#0F172A]/70 dark:text-slate-400 border-t border-[#E2E8F0] dark:border-slate-800 font-mono">
+          <div className="flex items-center justify-between pt-4 mt-3 text-xs text-neutral-600 dark:text-neutral-400 border-t border-neutral-200/80 dark:border-neutral-800/80 font-mono">
             <span className="text-[11px]">Radius Ladder:</span>
             <div className="flex items-center gap-1">
               {system.radii.slice(0, 4).map((r, idx) => (
@@ -240,8 +240,8 @@ export const ComponentSandboxCell: React.FC<ComponentSandboxCellProps> = ({ syst
                   onClick={() => setActiveRadiusIndex(idx)}
                   className={`text-[10px] px-2 py-0.5 rounded-md border transition-colors cursor-pointer ${
                     activeRadiusIndex === idx
-                      ? 'bg-[#2563EB] text-white border-[#2563EB] font-bold'
-                      : 'border-[#E2E8F0] dark:border-slate-800 text-slate-400 hover:text-[#0F172A] dark:hover:text-white'
+                      ? 'bg-neutral-200 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 border-neutral-300 dark:border-neutral-700 font-bold'
+                      : 'border-neutral-200 dark:border-neutral-800 text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200'
                   }`}
                 >
                   {r.value}

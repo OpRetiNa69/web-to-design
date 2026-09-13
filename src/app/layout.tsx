@@ -1,15 +1,21 @@
 import type { Metadata } from "next";
-import { Inter, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Newsreader } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const geistSans = Geist({
+  variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
+  subsets: ["latin"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -26,7 +32,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${inter.variable} ${geistMono.variable} h-full`}
+      className={`${geistSans.variable} ${geistMono.variable} ${newsreader.variable} h-full`}
     >
       <head>
         <script
@@ -47,7 +53,7 @@ export default function RootLayout({
       </head>
       <body
         suppressHydrationWarning
-        className="bg-[#F8FAFC] dark:bg-[#0F172A] text-[#0F172A] dark:text-slate-100 antialiased transition-colors duration-200 min-h-screen flex flex-col font-sans"
+        className="bg-neutral-50 text-neutral-900 dark:bg-neutral-950 dark:text-neutral-50 antialiased transition-colors duration-200 min-h-screen flex flex-col"
       >
         {children}
       </body>
