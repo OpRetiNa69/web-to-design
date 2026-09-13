@@ -1,4 +1,5 @@
-import { chromium, type Browser, type BrowserContext, type Page } from 'playwright';
+import puppeteer, { type Browser, type Page } from 'puppeteer-core';
+import chromium from '@sparticuz/chromium';
 import { colord, extend } from 'colord';
 import a11yPlugin from 'colord/plugins/a11y';
 import type {
@@ -45,46 +46,30 @@ interface ColorAccumulator {
  */
 export async function extractTokensFromUrl(targetUrl: string): Promise<ExtractionResult> {
   let browser: Browser | null = null;
-  let context: BrowserContext | null = null;
   let page: Page | null = null;
 
   try {
-    browser = await chromium.launch({
+    const executablePath = await chromium.executablePath();
+
+    browser = await puppeteer.launch({
+      args: chromium.args,
+      defaultViewport: { width: 1440, height: 900 },
+      executablePath,
       headless: true,
-      args: [
-        '--no-sandbox',
-        '--disable-setuid-sandbox',
-        '--disable-dev-shm-usage',
-        '--disable-accelerated-2d-canvas',
-        '--no-first-run',
-        '--no-zygote',
-        '--single-process',
-        '--disable-gpu',
-      ],
     });
 
-    context = await browser.newContext({
-      viewport: { width: 1440, height: 900 },
-      userAgent: USER_AGENT,
-      deviceScaleFactor: 1,
+    page = await browser.newPage();
+    await page.setUserAgent(USER_AGENT);
+    await page.setViewport({ width: 1440, height: 900 });
+
+    // Set navigation to domcontentloaded with a 20s timeout so large target sites don't hit function timeout limits
+    await page.goto(targetUrl, {
+      waitUntil: 'domcontentloaded',
+      timeout: 20000,
     });
 
-    page = await context.newPage();
-
-    // Navigation strategy:
-    // Attempt networkidle with 12s timeout. If it times out, fallback to domcontentloaded with a 2s hydration wait.
-    try {
-      await page.goto(targetUrl, {
-        waitUntil: 'networkidle',
-        timeout: 12000,
-      });
-    } catch {
-      await page.goto(targetUrl, {
-        waitUntil: 'domcontentloaded',
-        timeout: 15000,
-      });
-      await page.waitForTimeout(2000);
-    }
+    // Hydration buffer for client-rendered computed styles
+    await new Promise((resolve) => setTimeout(resolve, 1500));
 
     // Evaluate visible DOM elements to collect raw styling tokens (capped at 1,500 elements)
     const rawData = await page.evaluate((): RawElementData => {
@@ -322,9 +307,6 @@ export async function extractTokensFromUrl(targetUrl: string): Promise<Extractio
   } finally {
     if (page) {
       await page.close().catch(() => {});
-    }
-    if (context) {
-      await context.close().catch(() => {});
     }
     if (browser) {
       await browser.close().catch(() => {});

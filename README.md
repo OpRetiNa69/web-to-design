@@ -27,7 +27,7 @@
 
 - **Framework**: [Next.js 16](https://nextjs.org/) (App Router, React 19)
 - **Styling**: [Tailwind CSS v4](https://tailwindcss.com/) + Custom Design System
-- **Browser Automation**: [Playwright](https://playwright.dev/)
+- **Browser Automation**: [Puppeteer Core](https://pptr.dev/) + [@sparticuz/chromium](https://github.com/Sparticuz/chromium) (Vercel Serverless optimized)
 - **Color Science**: [colord](https://github.com/omgovich/colord) (A11y & HSL color manipulation)
 - **Icons**: [Lucide React](https://lucide.dev/)
 - **Language**: TypeScript 5
@@ -54,19 +54,9 @@
    npm install
    ```
 
-3. Install Playwright browser binaries (for extraction):
+3. Build the project:
    ```bash
-   npx playwright install chromium
-   ```
-
-4. For production deployment (Vercel, Render, Railway, Docker, etc.):
-   Configure the build command as:
-   ```bash
-   npx playwright install chromium && npm run build
-   ```
-   Or use the provided npm script:
-   ```bash
-   npm run build:deploy
+   npm run build
    ```
 
 5. Start the development server:
